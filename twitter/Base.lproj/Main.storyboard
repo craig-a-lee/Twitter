@@ -176,7 +176,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message-icon" translatesAutoresizingMaskIntoConstraints="NO" id="E7d-N2-Vq9">
-                                                    <rect key="frame" x="347" y="119.5" width="30" height="30"/>
+                                                    <rect key="frame" x="356" y="119.5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="PxT-lY-LOh"/>
                                                         <constraint firstAttribute="height" constant="30" id="he0-wl-TFq"/>
@@ -238,6 +238,7 @@
                                                 <constraint firstItem="NAL-5h-MrF" firstAttribute="firstBaseline" secondItem="kZr-Vs-W2k" secondAttribute="firstBaseline" id="Ipf-hX-q1z"/>
                                                 <constraint firstItem="49N-Zb-bCU" firstAttribute="centerY" secondItem="gbp-b3-dUM" secondAttribute="centerY" id="Lgy-GC-bCc"/>
                                                 <constraint firstItem="fVr-3h-gJ3" firstAttribute="leading" secondItem="rdr-kH-j6L" secondAttribute="trailing" constant="8" id="M0m-9L-1ec"/>
+                                                <constraint firstAttribute="trailing" secondItem="kZr-Vs-W2k" secondAttribute="trailing" constant="4" id="NIh-ce-Y3l"/>
                                                 <constraint firstItem="NAL-5h-MrF" firstAttribute="top" secondItem="Jeo-lT-50U" secondAttribute="topMargin" constant="-5" id="SyE-4F-bju"/>
                                                 <constraint firstItem="fVr-3h-gJ3" firstAttribute="leading" secondItem="rdr-kH-j6L" secondAttribute="trailing" constant="8" symbolic="YES" id="WDU-Xl-Hs1"/>
                                                 <constraint firstItem="NAL-5h-MrF" firstAttribute="top" secondItem="bWq-t6-3J5" secondAttribute="top" id="YSc-8w-P9G"/>
