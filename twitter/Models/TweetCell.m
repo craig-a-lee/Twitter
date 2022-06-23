@@ -9,6 +9,7 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "APIManager.h"
+#import "DateTools.h"
 
 @implementation TweetCell
 
@@ -29,10 +30,15 @@
 // You need to do this any time you create a custom setter.
 
     _tweet = tweet;
-
+    //NSDate *date =
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    // Configure the input format to parse the date string
+    formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
+    // Convert String to Date
+    NSDate *date = [formatter dateFromString:tweet.createdAtString];
     self.displayName.text = tweet.user.name;
     self.userName.text = tweet.user.screenName;
-    self.date.text = tweet.createdAtString;
+    self.date.text = date.shortTimeAgoSinceNow;
     NSString *URLString = tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     //NSData *urlData = [NSData dataWithContentsOfURL:url];

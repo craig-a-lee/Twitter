@@ -12,7 +12,7 @@
 #import "LoginViewController.h"
 #import "TweetCell.h"
 #import "Tweet.h"
-
+#import "DetailsViewController.h"
 
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 - (IBAction)didTapLogout:(id)sender;
@@ -64,15 +64,21 @@
     [self getTimeline];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
+   
+    Tweet *dataToPass = self.arrayOfTweets[myIndexPath.row];
+    DetailsViewController *detailVC = [segue destinationViewController];
+    detailVC.detailTweet = dataToPass;
 }
-*/
+
 
 
 - (IBAction)didTapLogout:(id)sender {
