@@ -17,6 +17,7 @@
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 - (IBAction)didTapLogout:(id)sender;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -26,9 +27,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.refreshControl = [[UIRefreshControl alloc] init];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    [self.refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
+
     [self getTimeline];
 }
  
@@ -43,6 +48,7 @@
                 NSString *text = tweet.text;
                 NSLog(@"%@", text);
             }
+            [self.refreshControl endRefreshing];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
@@ -52,6 +58,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+    [self getTimeline];
 }
 
 /*

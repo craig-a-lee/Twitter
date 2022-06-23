@@ -36,6 +36,9 @@
     NSURL *url = [NSURL URLWithString:URLString];
     //NSData *urlData = [NSData dataWithContentsOfURL:url];
     [self.profilePic setImageWithURL:url];
+//    if (tweet.retweeted) {
+//        self.didTapRetweet.currentImage = retwee
+//    }
     self.numRetweets.text = [NSString stringWithFormat:@"%i", tweet.retweetCount];
     self.numFavorites.text = [NSString stringWithFormat:@"%i", tweet.favoriteCount];
     self.text.text = tweet.text;
