@@ -12,9 +12,10 @@
 #import "LoginViewController.h"
 #import "TweetCell.h"
 #import "Tweet.h"
+#import "ComposeViewController.h"
 #import "DetailsViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, DetailsViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 - (IBAction)didTapLogout:(id)sender;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
@@ -71,12 +72,25 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
-   
-    Tweet *dataToPass = self.arrayOfTweets[myIndexPath.row];
-    DetailsViewController *detailVC = [segue destinationViewController];
-    detailVC.detailTweet = dataToPass;
+
+//    NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
+//
+//    Tweet *dataToPass = self.arrayOfTweets[myIndexPath.row];
+//    DetailsViewController *detailVC = [segue destinationViewController];
+//    detailVC.detailTweet = dataToPass;
+    if ([segue.identifier isEqual:@"composeSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+        
+    } else if ([segue.identifier isEqual:@"detailsSegue"]) {
+        NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
+        Tweet *dataToPass = self.arrayOfTweets[myIndexPath.row];
+        DetailsViewController *detailVC = [segue destinationViewController];
+        detailVC.detailTweet = dataToPass;
+        detailVC.delegate = self;
+        detailVC.path = myIndexPath;
+    } 
 }
 
 
@@ -104,4 +118,30 @@
     return cell;
 }
 
+- (void) didTweet:(Tweet *)tweet {
+    //[self.arrayOfTweets addObject:tweet];
+    [self.arrayOfTweets insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
+}
+
+- (void) didClickTweet: (NSIndexPath *) tweetPath {
+    TweetCell *cell = [self.tableView cellForRowAtIndexPath:tweetPath];
+    
+    if (cell.tweet.retweeted) {
+        [cell.didTapRetweet setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
+    } else {
+        [cell.didTapRetweet setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
+    }
+    
+    if (cell.tweet.favorited) {
+        [cell.didTapLike setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
+    } else {
+        [cell.didTapLike setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
+    }
+    
+    
+    cell.numRetweets.text = [NSString stringWithFormat:@"%i", cell.tweet.retweetCount];
+    cell.numFavorites.text = [NSString stringWithFormat:@"%i", cell.tweet.favoriteCount];
+    [self.tableView reloadData];
+}
 @end

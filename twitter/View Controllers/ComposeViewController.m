@@ -9,6 +9,8 @@
 #import "ComposeViewController.h"
 #import "APIManager.h"
 
+
+
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
@@ -20,12 +22,16 @@
     [super viewDidLoad];
     //[APIManager postStatus]
     // Do any additional setup after loading the view.
+    [[self.textView layer] setBorderColor:[[UIColor linkColor] CGColor]];
+    [[self.textView layer] setBorderWidth:2.3];
+    [[self.textView layer] setCornerRadius:15];
 }
 - (IBAction)CloseWindow:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 - (IBAction)postTweet:(id)sender {
     [[APIManager shared] postStatusWithText:self.textView.text completion:^(Tweet *tweet, NSError *error) {
+        [self.delegate didTweet:tweet];
         [self dismissViewControllerAnimated:true completion:nil];
     }];
 }
