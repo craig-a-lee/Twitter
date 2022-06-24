@@ -17,12 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *date;
 @property (weak, nonatomic) IBOutlet UILabel *numRetweets;
 @property (weak, nonatomic) IBOutlet UILabel *numFavorites;
-@property (weak, nonatomic) IBOutlet UILabel *text;
 @property (nonatomic, strong) Tweet *tweet; // Display date
 @property (weak, nonatomic) IBOutlet UIImageView *profilePic;
 @property (weak, nonatomic) IBOutlet UIButton *didTapReply;
 @property (weak, nonatomic) IBOutlet UIButton *didTapRetweet;
 @property (weak, nonatomic) IBOutlet UIButton *didTapLike;
+@property (weak, nonatomic) IBOutlet UITextView *text;
 
 @end
 
